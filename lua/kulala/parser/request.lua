@@ -312,7 +312,7 @@ local function process_body(request)
     if status then
       request.body_temp_file = path
       table.insert(request.cmd, "--data-binary")
-      table.insert(request.cmd, "@" .. path)
+      table.insert(request.cmd, "\"@" .. path .. "\"")
     else
       Logger.error("Failed to create a temporary file for the request body")
     end
@@ -499,7 +499,7 @@ local function build_curl_command(request)
   table.insert(request.cmd, "-o")
   table.insert(request.cmd, GLOBALS.BODY_FILE)
   table.insert(request.cmd, "-w")
-  table.insert(request.cmd, "@" .. CURL_FORMAT_FILE)
+  table.insert(request.cmd, "\"@" .. CURL_FORMAT_FILE .. "\"")
 
   _ = request.request_target and vim.list_extend(request.cmd, { "--request-target", request.request_target })
 
